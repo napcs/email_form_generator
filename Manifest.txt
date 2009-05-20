@@ -1,0 +1,17 @@
+README.rdoc
+History.txt
+email_form_generator.rb
+lib/rails_commands.rb
+lib/email_form.rb
+templates/config.rb
+templates/config.yml
+templates/controller.rb
+templates/functional_test.rb
+templates/mailer_test.rb
+templates/mailer.rb
+templates/model.rb
+templates/tableless.rb
+templates/unit_test.rb
+templates/view_form.html.erb
+templates/view_new.html.erb
+templates/view_success.html.erb

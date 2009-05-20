@@ -1,0 +1,17 @@
+
+<%% form_for(@<%= singular_name %>, :url=><%= singular_name %>_url ) do |f| %>
+  <%%= f.error_messages :header_message=>"Please try again", :message=> "We couldn't process your email form for the following reasons:" %>
+ 
+<% for attribute in attributes -%>
+  <p>
+    <%%= f.label :<%= attribute.name %> %><br />
+    <%%= f.<%= attribute.field_type %> :<%= attribute.name %> %>
+  </p>
+<% end -%>
+  <p>
+    <%%= f.submit "Send" %>
+  </p>
+<%% end %>
+
+
+

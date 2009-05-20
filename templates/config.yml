@@ -1,0 +1,21 @@
+development:
+  web_host: http://localhost:3000
+  email:
+    delivery_method: smtp
+    server: smtp.yourdomain.com
+    port: 25
+    domain: yourdomain.com
+    authentication: none
+    username:
+    password: 
+    contact_recipient: admin@yourdomain.com
+production:
+  web_host: http://localhost:3000  
+  email:
+    delivery_method: sendmail
+    contact_recipient: admin@yourdomain.com
+test:
+  web_host: http://localhost:3000
+  email:
+    delivery_method: test
+    contact_recipient: admin@yourdomain.com

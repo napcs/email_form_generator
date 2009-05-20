@@ -1,0 +1,9 @@
+== 1.0.2 / 2009-02-13
+ * minor changes to the config file that originally was included
+== 1.0.1 / 2008-05-21
+ * renamed config.yml to email.yml
+ * renamed config.rb to email_config.rb
+ * updated docs
+== 1.0.0 / 2008-05-21
+* Birthday!
+

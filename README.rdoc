@@ -1,0 +1,125 @@
+=Email Form Generator
+    by Brian Hogan
+    http://www.napcs.com
+
+== DESCRIPTION:
+  
+This generator creates a working contact form with validations and delivery, and provides a method for working with configuration from YML files as well as a mechanism for working with models that don't require a database but still need validations and callbacks.
+
+== Usage:
+
+  ruby script/generate email_form contact
+
+  or
+  ruby script/generate email_form Contact first_name:string last_name:string email:string message:string
+  
+The command generates the following output:
+
+     Your form is ready for use in your application.
+     Before you start the server, fill in the right details into config/email.yml.
+           exists  app/models/
+           exists  app/controllers/
+           exists  app/helpers/
+           create  app/views/contact_forms
+           create  app/views/contact_form_mailer
+           exists  app/views/layouts/
+           exists  test/functional/
+           exists  test/unit/
+           create  app/views/contact_forms/success.html.erb
+           create  app/views/contact_forms/new.html.erb
+           create  app/views/contact_form_mailer/form.html.erb
+           create  app/controllers/contact_forms_controller.rb
+           create  config/email.yml
+           create  config/initializers/email_config.rb
+           create  app/models/contact_form.rb
+           create  app/models/contact_form_mailer.rb
+           create  app/models/tableless.rb
+           create  test/functional/contact_forms_controller_test.rb
+           create  test/unit/contact_form_mailer_test.rb
+
+Notice that it generates a model called ContactForm with a RESTful resource ContactForms, mapped to a singular resource route (map.resource :contact_form)
+
+Also generates a configuration file and an initializer to make configuring email for various environments a snap and a tableless model is included so you can use validations and form helpers just like you do with regular models.
+
+ 
+ 
+=== Configuration
+When the generator runs, it creates a configuration file called email.yml.  You need to modify this file so that it reflects your settings for your email server.
+
+    development:
+      web_host: http://localhost:3000
+      email:
+        delivery_method: smtp
+        server: smtp.yourdomain.com
+        port: 25
+        domain: yourdomain.com
+        authentication: none
+        username:
+        password: 
+        contact_recipient: admin@yourdomain.com
+    production:
+      web_host: http://localhost:3000
+      email:
+        delivery_method: sendmail
+        contact_recipient: admin@yourdomain.com
+    test:
+      web_host: http://localhost:3000
+      email:
+        delivery_method: test
+        contact_recipient: admin@yourdomain.com
+ 
+This file is read by config/initializers/email_config.rb, where it configures ActionMailer's settings. It should work fine out of the box for most environments.
+
+== Tableless Model
+The Tableless model inherits from ActiveRecord::Base and then removes the
+database functionality from the model.
+
+===Examples of use:
+
+  class Foo < Tableless
+    column :bar, :string
+    validates_presence_of :bar
+  end
+
+  @foo = Foo.new
+  @foo.save  #=> false
+  @foo.bar = "hello"
+  @foo.save #=> true
+
+This concept was inspired by Rick Olson
+ 
+
+== REQUIREMENTS:
+
+* The Mocha gem is required because I use it for testing. Change the tests if you want to use something else.
+* Rails 2.x with ActiveRecord
+
+== INSTALL:
+
+* Mac and Linux: sudo gem install email_form_generator
+* Windows: gem install email_form_generator
+
+== LICENSE:
+
+(The MIT License)
+
+Copyright (c) 2008-2009 Brian Hogan with code from http://dev.rubyonrails.org/
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
