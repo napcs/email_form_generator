@@ -12,14 +12,14 @@ class <%= class_name %>MailerTest < Test::Unit::TestCase
 
   end
 
-  def test_deliver_form
+  def test_deliver_<%=singular_name %>
     @f = <%=class_name %>.new
     
     <% attributes.each do |attribute| %>
        @f.<%=attribute.name %> = "foo"
     <% end %>
     
-    <%=class_name%>Mailer::deliver_form(@f)
+    <%=class_name%>Mailer::deliver_<%=singular_name %>(@f)
     assert_equal 1, ActionMailer::Base.deliveries.length
     
   end

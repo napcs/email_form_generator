@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class <%= class_name %>Test < Test::Unit::TestCase
+class <%= class_name %>Test < ActiveSupport::TestCase
 
   def test_should_deliver_message
     
@@ -15,12 +15,12 @@ class <%= class_name %>Test < Test::Unit::TestCase
   
   # modify this test in such a way as to cause the 
   # validations to fail, if you have any.
-  def test_should_not_deliver_message
-    
-    @f = <%=class_name %>.new
-    assert ! @f.deliver
-    
-  end
+  # def test_should_not_deliver_message
+  #   
+  #   @f = <%=class_name %>.new
+  #   assert ! @f.deliver
+  #   
+  # end
 
 
 end

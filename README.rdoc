@@ -56,17 +56,17 @@ When the generator runs, it creates a configuration file called email.yml.  You 
         authentication: none
         username:
         password: 
-        contact_recipient: admin@yourdomain.com
+        site_admin_email: admin@yourdomain.com
     production:
       web_host: http://localhost:3000
       email:
         delivery_method: sendmail
-        contact_recipient: admin@yourdomain.com
+        site_admin_email: admin@yourdomain.com
     test:
       web_host: http://localhost:3000
       email:
         delivery_method: test
-        contact_recipient: admin@yourdomain.com
+        site_admin_email: admin@yourdomain.com
  
 This file is read by config/initializers/email_config.rb, where it configures ActionMailer's settings. It should work fine out of the box for most environments.
 

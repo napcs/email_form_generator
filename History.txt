@@ -1,3 +1,12 @@
+== 1.0.4 / 2009-07-03
+ * Tests updated for Rails 2.3x
+ * Fixed broken generator.
+ * Fixed horrible formatting
+ * Changed variables in the config file
+ * added the default url options to the mailer
+ * changed method name of mailer to be more specific so you could easily make your own changes and use the mailer the way you want it.
+== 1.0.3 / 2009-05-25
+ * Some minor internal changes relating to templates
 == 1.0.2 / 2009-02-13
  * minor changes to the config file that originally was included
 == 1.0.1 / 2008-05-21

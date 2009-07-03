@@ -22,4 +22,4 @@ else
 
 end
 WEB_HOST = c[RAILS_ENV]['email']['web_host']
-CONTACT_RECIPIENT = c[RAILS_ENV]['email']['contact_recipient']
+SITE_ADMIN_EMAIL = c[RAILS_ENV]['email']['site_admin_email']

@@ -60,7 +60,7 @@ class EmailFormGenerator < Rails::Generator::NamedBase
       # mailer template
       m.template(
           "view_form.html.erb",
-          File.join('app/views', controller_class_path, file_name + "_mailer", "form.html.erb")
+          File.join('app/views', controller_class_path, file_name + "_mailer", file_name + ".html.erb")
         )
         
         
@@ -107,7 +107,7 @@ class EmailFormGenerator < Rails::Generator::NamedBase
   protected
     
     def ran_before?
-    options[:rspec] || (File.exist?('app/models/tableless.rb')
+    options[:rspec] || (File.exist?('app/models/tableless.rb'))
     end
     
     # Override with your own usage banner.
