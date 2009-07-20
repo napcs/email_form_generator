@@ -15,3 +15,6 @@ templates/unit_test.rb
 templates/view_form.html.erb
 templates/view_new.html.erb
 templates/view_success.html.erb
+templates/model_spec.rb
+templates/controller_spec.rb
+templates/mailer_spec.rb

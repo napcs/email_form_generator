@@ -11,6 +11,7 @@ class <%= class_name %> < Tableless
     if valid?
       begin
         <%= class_name %>Mailer::deliver_<%=singular_name %>(self)
+        return true
       rescue
          @errors.add_to_base "Your message could not be sent due to configuration issues with the server."
          return false

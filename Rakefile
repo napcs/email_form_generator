@@ -15,7 +15,7 @@ class Hoe
   end
 end
 
-Hoe.new('email_form_generator', '1.0.4') do |p|
+Hoe.new('email_form_generator', '1.0.5') do |p|
   p.rubyforge_name = 'emailform'
   p.name = "email_form_generator"
   p.author = 'Brian Hogan'

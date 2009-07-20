@@ -41,8 +41,12 @@ Notice that it generates a model called ContactForm with a RESTful resource Cont
 
 Also generates a configuration file and an initializer to make configuring email for various environments a snap and a tableless model is included so you can use validations and form helpers just like you do with regular models.
 
- 
- 
+=== RSpec support
+
+If you prefer to have specs instead of tests, use the --spec flag.
+
+  ruby script/generate email_form Contact first_name:string last_name:string email:string message:string --spec
+
 === Configuration
 When the generator runs, it creates a configuration file called email.yml.  You need to modify this file so that it reflects your settings for your email server.
 
@@ -92,6 +96,7 @@ This concept was inspired by Rick Olson
 == REQUIREMENTS:
 
 * The Mocha gem is required because I use it for testing. Change the tests if you want to use something else.
+* If you're using RSpec and you want to use the tests generated, you need to enable Mocha's mocking, or change the mock lines to use RSpec's mocking instead.
 * Rails 2.x with ActiveRecord
 
 == INSTALL:

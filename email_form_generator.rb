@@ -17,8 +17,10 @@ class EmailFormGenerator < Rails::Generator::NamedBase
  
   def initialize(runtime_args, runtime_options = {})
     @original_name = ARGV[0]
-    if ! ARGV[0].downcase.include?("form")
-      ARGV[0] = ARGV[0].underscore + "_form"
+    if ARGV[0]
+      if ! ARGV[0].downcase.include?("form")
+        ARGV[0] = ARGV[0].underscore + "_form"
+      end
     end
     super
     
@@ -47,8 +49,7 @@ class EmailFormGenerator < Rails::Generator::NamedBase
       m.directory(File.join('app/views', controller_class_path, controller_file_name))
       m.directory(File.join('app/views', controller_class_path, file_name + "_mailer"))
       m.directory(File.join('app/views/layouts', controller_class_path))
-      m.directory(File.join('test/functional', controller_class_path))
-      m.directory(File.join('test/unit', class_path))
+
  
       for action in scaffold_views
       m.template(
@@ -73,7 +74,7 @@ class EmailFormGenerator < Rails::Generator::NamedBase
         'tableless.rb', File.join('app/models', "tableless.rb"), :collision => :skip
       )
       m.template('config.yml', File.join('config', 'email.yml'), :collision => :skip)
-      m.template('config.rb', File.join('config/initializers', 'email_config.rb'), :collision => :skip)
+      m.template('config.rb', File.join('config/initializers', 'email.rb'), :collision => :skip)
       
       m.template(
         'model.rb', File.join('app/models', "#{file_name}.rb")
@@ -83,10 +84,22 @@ class EmailFormGenerator < Rails::Generator::NamedBase
         'mailer.rb', File.join('app/models', "#{file_name}_mailer.rb")
       )
       
-
-      m.template('functional_test.rb', File.join('test/functional', controller_class_path, "#{controller_file_name}_controller_test.rb"))
-      m.template('mailer_test.rb', File.join('test/unit', "#{file_name}_mailer_test.rb"))
- 
+      unless options[:rspec]
+        m.directory(File.join('test/functional', controller_class_path))
+        m.directory(File.join('test/unit', class_path))
+        m.template('functional_test.rb', File.join('test/functional', controller_class_path, "#{controller_file_name}_controller_test.rb"))
+        m.template('mailer_test.rb', File.join('test/unit', "#{file_name}_mailer_test.rb"))
+        m.template('unit_test.rb', File.join('test/unit', "#{file_name}_test.rb"))
+        
+      else
+        m.directory(File.join('spec/controllers', controller_class_path))
+        m.directory(File.join('spec/models', class_path))
+        m.template('controller_spec.rb', File.join('spec/controllers', controller_class_path, "#{controller_file_name}_controller_spec.rb"))
+        m.template('mailer_spec.rb', File.join('spec/models', "#{file_name}_mailer_spec.rb"))
+        m.template('model_spec.rb', File.join('spec/models', "#{file_name}_spec.rb"))
+      
+      end
+      
       m.route_resource  controller_singular_name
  
       action = nil
@@ -94,7 +107,7 @@ class EmailFormGenerator < Rails::Generator::NamedBase
       case action
         when "generate"
           puts "Your form is ready for use in your application."
-          puts "Before you start the server, fill in the right details into config/config.yml." 
+          puts "Before you start the server, fill in the right details into config/email.yml." 
           
       end      
       
@@ -107,7 +120,7 @@ class EmailFormGenerator < Rails::Generator::NamedBase
   protected
     
     def ran_before?
-    options[:rspec] || (File.exist?('app/models/tableless.rb'))
+      (File.exist?('app/models/tableless.rb'))
     end
     
     # Override with your own usage banner.
@@ -118,6 +131,7 @@ class EmailFormGenerator < Rails::Generator::NamedBase
     def add_options!(opt)
       opt.separator ''
       opt.separator 'Options:'
+      opt.on("--spec", "Generate specs instead of test:unit files") {|v| options[:rspec] = v }
       opt.on("--skip-timestamps",
              "Don't add timestamps to the migration file for this model") { |v| options[:skip_timestamps] = v }
       opt.on("--skip-migration",
